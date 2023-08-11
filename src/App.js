@@ -1,9 +1,10 @@
 import './App.css';
 import { BrowserRouter as Router, Link, Route, Routes, Switch} from 'react-router-dom';
 import ImageUploadComponent from './components/ImageUploadComponent';
+import Header from './components/Header';
+import Analysis from './components/Analysis';
 function App() {
   return (
-    <ImageUploadComponent />
       // <Router>
       //   <Switch>
       //     <Route exact path="/">
@@ -29,6 +30,28 @@ function App() {
       //     </Route>
       //   </Switch>
       // </Router>
+      <Router>
+      <div className='app'>
+        <Routes>
+          <Route path='/Attendance_analysis' element={(
+            <div>
+              <Header/>
+              <Analysis/>
+            </div>
+          )}/>
+          <Route path='/image_upload'element={(
+            <div>
+              <ImageUploadComponent />
+            </div>
+          )}/>
+          <Route path='/' element={(
+            <div>
+              <Header/>
+            </div>
+          )}/>
+        </Routes> 
+      </div>
+      </Router>
   );
 }
 
