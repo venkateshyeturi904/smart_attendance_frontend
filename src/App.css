@@ -38,8 +38,10 @@
 }
 
 /* for roll numbers list */
-.roll-number-list {
+.grid {
+  height:490px;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-top: 20px;
 }
@@ -89,18 +91,14 @@
     align-items: center;
     flex: 1;
     display: flex;
-    /* background-color: pink; */
 }
 
 .outer-container {
     background-color: white;
     height: 100vh;
     display: flex;
-    /* flex-direction: column; */
     align-items: center;
 }
-
-/*  */
 
 .IITG_logo {
   margin-top: 20px;
@@ -120,6 +118,20 @@
   border: 1px solid lightgray;
   padding: 30px;
   margin-top: 30px;
+  margin-left:40%;
+  align-items: center;
+}
+
+.rollnumber_box {
+  width: 400px;
+  height: 540px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  padding: 30px;
+  margin-top: 30px;
+  margin-left:10px;
 }
 
 .image_preview{
@@ -179,7 +191,7 @@
   color: white;
 }
 
-.Home{
+.Home-text{
   padding-left:5px;
   padding-top: 10px;
   color:white;
@@ -192,4 +204,49 @@
 .image_text,.slash,.analysis_text{
   color:white;
   padding-left: 10px;
+}
+
+.footer{
+  background-color:black;
+  padding: '10px';
+  text-align: center;
+}
+
+.footer-text{
+  color: white;
+  text-align: center;
+}
+
+.Home{
+  display:flex;
+  flex-direction: column;
+}
+
+.college{
+  display: flex;
+}
+
+.Home>h1{
+  margin-top: 20px;
+  margin-left:10px;
+  color: black;
+}
+
+.Home-image{
+  object-fit: contain;
+  width: 100px;
+}
+
+.Home_upload_button{
+    background: #f0c14b;
+    border-radius: 2px;
+    width: 200px;
+    height: 30px;
+    border: 1px solid;
+    margin-top: 10px;
+    border-color: #a88734 #9c7e31 #846a29;
+}
+
+.button{
+  align-items: center;
 }

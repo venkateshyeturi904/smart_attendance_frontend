@@ -1,10 +1,11 @@
 import React from 'react';
+import '../App.css'
 
 const RollNumbersListComponent = ({ rollNumbers }) => {
   return (
-    <div>
+    <div className='rollnumber_box'>
       <h2>Roll Numbers:</h2>
-      <div className="roll-numbers-list">
+      <div className="grid">
         {rollNumbers.map((rollNumber, index) => (
           <div key={index} className="roll-number-box">
             {rollNumber}

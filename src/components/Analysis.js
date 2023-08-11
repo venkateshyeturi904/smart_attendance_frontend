@@ -40,9 +40,6 @@ function Analysis() {
               <button type="submit" class="upload_button">Submit</button>
           </form>
         </div>
-        {/* {rollNumbers.length > 0 && (
-          <RollNumbersListComponent rollNumbers={rollNumbers} />
-        )} */}
       </div>
     </div>
   )

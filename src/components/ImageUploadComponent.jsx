@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { uploadImage } from "../services/ImageUploadService";
 import RollNumbersListComponent from "../components/RollNumbersListComponent";
 import "../App.css";
-import Header from "./Header";
+import { useNavigate } from "react-router-dom/dist";
 
 export default function ImageUploadComponent() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -10,6 +10,7 @@ export default function ImageUploadComponent() {
   const [date, setDate] = useState("");
   const [rollNumbers, setRollNumbers] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
+  const navigate=useNavigate();
 
   const handleFileChange = (e) => {
     console.log("fileData", e.target.files);
@@ -52,17 +53,17 @@ export default function ImageUploadComponent() {
     formData.append("date", date);
 
     console.log(formData);
-    try {
-      const response = await uploadImage(formData);
-      setRollNumbers(response); // Assuming the response data is an array of roll numbers
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
+    // try {
+    //   const response = await uploadImage(formData);
+    //   setRollNumbers(response); // Assuming the response data is an array of roll numbers
+      navigate('/students');
+    // } catch (error) {
+    //   console.error("Error uploading image:", error);
+    // }
   };
 
   return (
     <div>
-      <Header/>
       <div className="outer-container" >
         <div className="box">
           <img
@@ -108,30 +109,12 @@ export default function ImageUploadComponent() {
               <button type="submit" class="upload_button">Upload</button>
           </form>
           </div>
-          <div>
+          {/* <div>
             {rollNumbers.length > 0 ? (
-            <RollNumbersListComponent rollNumbers={rollNumbers} />
+               <RollNumbersListComponent rollNumbers={rollNumbers} />
             ):<></>}
-          </div>
+          </div> */}
       </div>
     </div>
   );
 }
-
-/*
-render component code : 
-<form onSubmit={handleSubmit}>
-    <div className="outer-container">
-      <div className="image-container">
-        <h1>Image Upload</h1>
-        <div className>
-          <input type="file" onChange={handleFileChange} />
-          <input type="text" placeholder="Class ID" value={classId} onChange={handleClassIdChange} />
-        </div>
-      </div>
-      {rollNumbers.length > 0 && <RollNumbersListComponent rollNumbers={rollNumbers} />}
-    </div>
-    <input type="date" value={date} onChange={handleDateChange} />
-    <button type="submit">Upload</button>
-    </form>
-*/
