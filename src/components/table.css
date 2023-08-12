@@ -20,3 +20,15 @@ table {
     background-color: #04AA6D;
     color: white;
   }
+  
+  .table-container {
+    max-height: 500px; 
+    overflow-y: auto;
+  }
+
+  .fixed-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
