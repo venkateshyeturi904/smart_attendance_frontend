@@ -13,12 +13,12 @@ const ImageUploadComponent=()=> {
 
   const Data = [
     {
-      studentId: 1,
+      studentId: '1',
       studentName: 'John Doe',
       status: 'Present',
     },
     {
-      studentId: 2,
+      studentId: '2',
       studentName: 'Jane Smith',
       status: 'Absent',
     },

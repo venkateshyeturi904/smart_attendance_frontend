@@ -4,6 +4,7 @@ import '../App.css'
 function Home() {
   return (
     <div className='Home'>
+        <div className='outer-container'>
         <div className='college'>
         <img
             className='Home-image'
@@ -15,6 +16,7 @@ function Home() {
         </div>
         <div className='button'>
             <button type="submit" class="Home_upload_button" >Upload Image</button>
+        </div>
         </div>
     </div>
   )
