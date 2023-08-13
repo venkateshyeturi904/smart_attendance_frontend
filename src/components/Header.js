@@ -10,7 +10,7 @@ function Header() {
       <Link style={{textDecoration: 'none'}} to='/'>
         <div className='Home_icon'>
           <HomeIcon className='HomeIcon'></HomeIcon>
-          <span className='Home'>Home</span>
+          <span className='Home-text'>Home</span>
         </div>
       </Link>
       <div>

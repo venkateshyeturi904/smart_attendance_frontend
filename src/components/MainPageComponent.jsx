@@ -58,9 +58,7 @@ const MainPageComponent = ({ rollNumbers }) => {
           <h1>Hello</h1>
           <p>bye</p>
         </main>
-        <footer style={{ backgroundColor: '#333', color: '#fff', padding: '10px', textAlign: 'center'  }}>
-          <p>&copy; 2023 My App. All rights reserved.</p>
-        </footer>
+        
         <Routes>
           <Route path="/" element={<MainPageComponent />} />
           <Route path="/image-upload" element={<ImageUploadComponent />} />
