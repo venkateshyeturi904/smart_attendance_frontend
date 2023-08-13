@@ -1,7 +1,12 @@
 import React from 'react'
 import '../App.css'
+import { useNavigate } from 'react-router-dom/dist'
 
 function Home() {
+    const navigate=useNavigate();
+    const handleClick=(e)=>{
+        navigate('/image_upload');
+    }
   return (
     <div className='Home'>
         <div className='outer-container'>
@@ -15,7 +20,7 @@ function Home() {
         </h1>
         </div>
         <div className='button'>
-            <button type="submit" class="Home_upload_button" >Upload Image</button>
+            <button type="submit" class="Home_upload_button" onClick={handleClick} >Upload Image</button>
         </div>
         </div>
     </div>

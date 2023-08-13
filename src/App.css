@@ -118,7 +118,21 @@
   border: 1px solid lightgray;
   padding: 30px;
   margin-top: 30px;
-  margin-left:40%;
+  margin-left:1%;
+  align-items: center;
+}
+
+.preview_box {
+  width: 400px;
+  height:540px;
+  object-fit: contain;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  border: 1px solid lightgray;
+  padding: 30px;
+  margin-top: 30px;
+  margin-left:6%;
   align-items: center;
 }
 
@@ -146,6 +160,12 @@
   padding:5px;
 }
 
+.image_preview_side{
+  width:350px;
+  height:450px;
+  object-fit: contain;
+}
+
 .box > h1 {
   font-weight: 500;
   margin-bottom: 20px;
@@ -157,6 +177,7 @@
 
 .box > form > input {
   height: 30px;
+  width:100%;
   margin-bottom: 10px;
   background-color: white;
   width: 98%;

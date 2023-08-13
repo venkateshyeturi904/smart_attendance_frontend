@@ -11,6 +11,9 @@
     border-radius: 5px;
     border: 1px solid lightgray;
     margin-left:1px;
+    background-color: #ffffff;
+    position: fixed;
+    opacity:1;
     align-items: center;
   }
   
@@ -40,4 +43,8 @@
   
   .submit_button:hover {
     background-color: #b38900;
+  }
+
+  .studentPresent{
+    margin-top:100px;
   }

@@ -154,20 +154,45 @@ const ImageUploadComponent=()=> {
     formData.append("classId", classId);
     formData.append("date", date);
 
-    console.log(formData);
-    // try {
-    //   const response = await uploadImage(formData);
-    //   setStudentData(response); // Assuming the response data is an array of roll numbers
-    //   // navigate('/students');
-    // } catch (error) {
-    //   console.error("Error uploading image:", error);
-    // }
-    setStudentData(Data);
+    console.log(typeof(formData));
+    try {
+      const response = await uploadImage(formData);
+      setStudentData(response); // Assuming the response data is an array of roll numbers
+      // navigate('/students');
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+    // setStudentData(Data);
   };
 
   return (
     <div>
       <div className="outer-container" >
+        <div className='preview_box'>
+        <div className="file-container">
+            {previewImage ? (
+              <img
+                src={previewImage}
+                alt="Image Preview"
+                className="image_preview_side"
+              />
+            ) : (
+              <img
+                src={
+                  "https://img.freepik.com/free-vector/output_53876-25529.jpg"
+                }
+                alt="Image Preview"
+                className="image_preview_side"
+              />
+            )}
+            <input
+              id="imageInputA"
+              type="file"
+              onChange={handleFileChange}
+              accept="image/*"
+            />
+          </div>
+        </div>
         <div className="box">
           <img
             className="IITG_logo"
