@@ -9,6 +9,16 @@ const ImageUploadComponent=()=> {
   const [date, setDate] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
   const [studentData,setStudentData]=useState([]);
+  const COLUMNS = [
+    {
+      Header: 'Student ID',
+      accessor: 'student_id',
+    },
+    {
+      Header: 'Student Name',
+      accessor: 'student_name',
+    },
+  ];
 
   const handleFileChange = (e) => {
     console.log("fileData", e.target.files);
@@ -52,7 +62,7 @@ const ImageUploadComponent=()=> {
 
     try {
       const response = await uploadImage(formData);
-      setStudentData(response); // Assuming the response data is an array of roll numbers
+      setStudentData(response); 
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -126,7 +136,6 @@ const ImageUploadComponent=()=> {
               type="file"
               onChange={handleFileChange}
               accept="image/*"
-              className
             />
           </div>
               <button type="submit" class="upload_button">Upload</button>
@@ -134,7 +143,7 @@ const ImageUploadComponent=()=> {
           </div>
           <div>
             {studentData.length > 0 ? (
-               <RollNumbersListComponent student_Data={studentData} />
+               <RollNumbersListComponent student_Data={studentData} columns={COLUMNS} />
             ):<></>}
           </div>
       </div>
