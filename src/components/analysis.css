@@ -48,3 +48,8 @@
   .studentPresent{
     margin-top:100px;
   }
+
+  .course_student{
+    display:flex;
+    margin-top:10px;
+  }
