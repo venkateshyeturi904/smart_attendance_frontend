@@ -10,7 +10,8 @@
     display: flex;
     border-radius: 5px;
     border: 1px solid lightgray;
-    margin-left:1px;
+    justify-content: center;
+    margin-left:10%;
     background-color: #ffffff;
     position: fixed;
     opacity:1;
