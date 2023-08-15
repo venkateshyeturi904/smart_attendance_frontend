@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
 import './analysis.css';
+import {courseId_by_date ,courseId_by_student,student_by_course_by_date,student_by_course ,student_by_course_average,course_by_date} from '../services/analysisService.js'
 import BarGraph from './Bargraph';
 import PieChart from './PieChart';
+import DatesPresent from './DatesPresent';
 function Analysis() {
   const [classId, setClassId] = useState("");
   const [date, setDate] = useState("");
@@ -10,52 +12,34 @@ function Analysis() {
   const [courseAttendance,setCourseAttendance]=useState([]);
   const [studentPresent,setStudentPresent]=useState("");
   const [studentAverage,setStudentAverage]=useState([]);
-  const courseData = [
-    { date: '2023-08-01', studentCount: 20 },
-    { date: '2023-08-02', studentCount: 25 },
-    { date: '2023-08-03', studentCount: 18 },
-    { date: '2023-08-04', studentCount: 22 },
-    { date: '2023-08-05', studentCount: 30 },
-    { date: '2023-08-06', studentCount: 15 },
-    { date: '2023-08-07', studentCount: 28 },
-    { date: '2023-08-08', studentCount: 23 },
-    { date: '2023-08-09', studentCount: 19 },
-    { date: '2023-08-10', studentCount: 24 },
-    { date: '2023-08-01', studentCount: 20 },
-    { date: '2023-08-02', studentCount: 25 },
-    { date: '2023-08-03', studentCount: 18 },
-    { date: '2023-08-04', studentCount: 22 },
-    { date: '2023-08-05', studentCount: 30 },
-    { date: '2023-08-06', studentCount: 15 },
-    { date: '2023-08-07', studentCount: 28 },
-    { date: '2023-08-08', studentCount: 23 },
-    { date: '2023-08-09', studentCount: 19 },
-    { date: '2023-08-10', studentCount: 24 },
+  const [datevsStatus,setDatevsStatus]=useState([]);
+  const [coursevsDate,setCoursevsDate]=useState([]);
+  const [courseAverage,setCourseAverage]=useState([]);
+  const COLUMNS1 = [
+    {
+      Header: 'Date',
+      accessor: 'date',
+    },
+    {
+      Header: 'Status',
+      accessor: 'status',
+    },
   ];
 
-  const studentAttendanceData = [
-    { studentId: 1, classesAttended: 15 },
-    { studentId: 2, classesAttended: 18 },
-    { studentId: 3, classesAttended: 12 },
-    { studentId: 4, classesAttended: 20 },
-    { studentId: 5, classesAttended: 17 },
-    { studentId: 6, classesAttended: 14 },
-    { studentId: 7, classesAttended: 19 },
-    { studentId: 8, classesAttended: 16 },
-    { studentId: 9, classesAttended: 13 },
-    { studentId: 10, classesAttended: 11 },
-    { studentId: 11, classesAttended: 22 },
-    { studentId: 12, classesAttended: 21 },
-    { studentId: 13, classesAttended: 8 },
-    { studentId: 14, classesAttended: 9 },
-    { studentId: 15, classesAttended: 23 },
-    { studentId: 16, classesAttended: 26 },
-    { studentId: 17, classesAttended: 7 },
-    { studentId: 18, classesAttended: 25 },
-    { studentId: 19, classesAttended: 10 },
-    { studentId: 20, classesAttended: 24 },
-  ];
-  
+  const COLUMNS2=[
+    {
+      Header:'Student Id',
+      accessor:'studentId',
+    },
+    {
+      Header:'Student Name',
+      accessor:'studentName',
+    },
+    {
+      Header:'Status',
+      accessor:'status',
+    }
+  ]
 
   const handleClassIdChange = (e) => {
     console.log("value", e);
@@ -70,20 +54,79 @@ function Analysis() {
     setRollNumber(e.target.value);
   }
 
-  const handleSubmit=(e)=>{
+  const handleSubmit=async(e)=>{
       e.preventDefault();
-      if(classId!="" && date=="" && rollNumber==""){
-        const Date_and_student=[courseData,studentAttendanceData];
-        setCourseAttendance(Date_and_student);
-        setStudentAverage("");
+      if(classId!=="" && date==="" && rollNumber===""){
+        try {
+          const response1 = await courseId_by_date(classId);
+          const response2= await courseId_by_student(classId);
+          const Date_and_student=[response1.data,response2.data];
+          console.log(Date_and_student)
+          setCourseAttendance(Date_and_student);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+        setCoursevsDate([]);
+        setStudentPresent("");
         setStudentAverage([]);
-      }else if(classId!="" && date!="" && rollNumber!=""){
+      }else if(classId!=="" && date!=="" && rollNumber!==""){
+        try {
+          const response = await student_by_course_by_date(classId,rollNumber,date);
+          console.log(response);
+          const value=(response.data[0])?"present":"absent";
+          setStudentPresent(value);
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
         setCourseAttendance([]);
-        setStudentPresent("present");
+        setCoursevsDate([]);
         setStudentAverage([]);
-      }else if(classId!="" && date=="" && rollNumber!=""){
+      }else if(classId!=="" && date==="" && rollNumber!==""){
+        try {
+          const response1 = await student_by_course(classId,rollNumber);
+          const response2=await student_by_course_average(classId,rollNumber);
+          const present=response2.data;
+          const absent=100-present;
+          const date_attend=response1.data.map((element)=>{
+            return {
+              "date" : element[0],
+              "status" :element[1]?"Present":"Absent"
+            }
+          });
+          console.log(date_attend);
+          setStudentAverage([present,absent]);
+          setDatevsStatus(date_attend);
+          
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
         setCourseAttendance([]);
-        setStudentAverage([80,20]);
+        setCoursevsDate([]);
+        setStudentPresent("");
+      }else if(classId!=="" && date!=="" && rollNumber===""){
+        try {
+          const response1 = await course_by_date(classId,date);
+          let present=0;
+          let absent=0;
+          const date_attend=response1.data.map((element)=>{
+            if(element[2])present++;
+            else absent++;
+            return {
+              "studentId" : element[0],
+              "studentName" :element[1],
+              "status":element[2]?"Present":"Absent"
+            }
+          });
+          const presentAverage=(present*100)/(present+absent);
+          const absentAverage=(absent*100)/(present+absent);
+          setCourseAverage([presentAverage,absentAverage]);
+          setCoursevsDate(date_attend);
+          
+        } catch (error) {
+          console.error("Error uploading image:", error);
+        }
+        setStudentAverage([]);
+        setCourseAttendance([]);
         setStudentPresent("");
       }
       
@@ -111,13 +154,24 @@ function Analysis() {
             ):<></>
           }
           {
-            studentPresent!=""?(
+            studentPresent!==""?(
               <h1 className='studentPresent'>{`Student is ${studentPresent}`}</h1>
             ):<></>
           }
           {
             studentAverage.length>0?(
-              <PieChart attendancePercentage={studentAverage[0]} absencePercentage={studentAverage[1]}/>
+              <div className='course_student'>
+                <PieChart attendancePercentage={studentAverage[0]} absencePercentage={studentAverage[1]}/>
+                <DatesPresent student_Data={datevsStatus} columns={COLUMNS1}/>
+              </div>
+            ):<></>
+          }
+          {
+            coursevsDate.length>0?(
+              <div className='course_student'>
+                <PieChart attendancePercentage={courseAverage[0]} absencePercentage={courseAverage[1]}/>
+                <DatesPresent student_Data={coursevsDate} columns={COLUMNS2}/>
+              </div>
             ):<></>
           }
       </div>

@@ -13,6 +13,7 @@ function Home() {
         <div className='college'>
         <img
             className='Home-image'
+            alt=""
             src="https://event.iitg.ac.in/icann2019/Proceedings_LaTeX/2019/IITG_logo.png"
         />
         <h1>
