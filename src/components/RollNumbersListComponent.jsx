@@ -1,16 +1,12 @@
 import React from 'react';
+import '../App.css'
+import StudentTable from './StudentTable';
 
-const RollNumbersListComponent = ({ rollNumbers }) => {
+const RollNumbersListComponent = ({ student_Data,columns }) => {
   return (
-    <div>
-      <h2>Roll Numbers:</h2>
-      <div className="roll-numbers-list">
-        {rollNumbers.map((rollNumber, index) => (
-          <div key={index} className="roll-number-box">
-            {rollNumber}
-          </div>
-        ))}
-      </div>
+    <div className='rollnumber_box'>
+      <h1>Students in the Image</h1>
+      <StudentTable row={student_Data} col={columns}/>
     </div>
   );
 };

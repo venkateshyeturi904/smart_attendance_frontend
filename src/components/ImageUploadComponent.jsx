@@ -2,14 +2,23 @@ import React, { useState } from "react";
 import { uploadImage } from "../services/ImageUploadService";
 import RollNumbersListComponent from "../components/RollNumbersListComponent";
 import "../App.css";
-import Header from "./Header";
 
-export default function ImageUploadComponent() {
+const ImageUploadComponent=()=> {
   const [selectedFile, setSelectedFile] = useState(null);
   const [classId, setClassId] = useState("");
   const [date, setDate] = useState("");
-  const [rollNumbers, setRollNumbers] = useState([]);
   const [previewImage, setPreviewImage] = useState(null);
+  const [studentData,setStudentData]=useState([]);
+  const COLUMNS = [
+    {
+      Header: 'Student ID',
+      accessor: 'student_id',
+    },
+    {
+      Header: 'Student Name',
+      accessor: 'student_name',
+    },
+  ];
 
   const handleFileChange = (e) => {
     console.log("fileData", e.target.files);
@@ -51,10 +60,9 @@ export default function ImageUploadComponent() {
     formData.append("classId", classId);
     formData.append("date", date);
 
-    console.log(formData);
     try {
       const response = await uploadImage(formData);
-      setRollNumbers(response); // Assuming the response data is an array of roll numbers
+      setStudentData(response); 
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -62,11 +70,36 @@ export default function ImageUploadComponent() {
 
   return (
     <div>
-      <Header/>
       <div className="outer-container" >
+        <div className='preview_box'>
+        <div className="file-container">
+            {previewImage ? (
+              <img
+                src={previewImage}
+                alt=""
+                className="image_preview_side"
+              />
+            ) : (
+              <img
+                src={
+                  "https://img.freepik.com/free-vector/output_53876-25529.jpg"
+                }
+                alt=""
+                className="image_preview_side"
+              />
+            )}
+            <input
+              id="imageInputA"
+              type="file"
+              onChange={handleFileChange}
+              accept="image/*"
+            />
+          </div>
+        </div>
         <div className="box">
           <img
             className="IITG_logo"
+            alt=""
             src="https://event.iitg.ac.in/icann2019/Proceedings_LaTeX/2019/IITG_logo.png"
           />
           <form onSubmit={handleSubmit}>
@@ -86,7 +119,7 @@ export default function ImageUploadComponent() {
             {previewImage ? (
               <img
                 src={previewImage}
-                alt="Image Preview"
+                alt=""
                 className="image_preview"
               />
             ) : (
@@ -94,7 +127,7 @@ export default function ImageUploadComponent() {
                 src={
                   "https://img.freepik.com/free-vector/output_53876-25529.jpg"
                 }
-                alt="Image Preview"
+                alt=""
                 className="image_preview"
               />
             )}
@@ -109,8 +142,8 @@ export default function ImageUploadComponent() {
           </form>
           </div>
           <div>
-            {rollNumbers.length > 0 ? (
-            <RollNumbersListComponent rollNumbers={rollNumbers} />
+            {studentData.length > 0 ? (
+               <RollNumbersListComponent student_Data={studentData} columns={COLUMNS} />
             ):<></>}
           </div>
       </div>
@@ -118,20 +151,4 @@ export default function ImageUploadComponent() {
   );
 }
 
-/*
-render component code : 
-<form onSubmit={handleSubmit}>
-    <div className="outer-container">
-      <div className="image-container">
-        <h1>Image Upload</h1>
-        <div className>
-          <input type="file" onChange={handleFileChange} />
-          <input type="text" placeholder="Class ID" value={classId} onChange={handleClassIdChange} />
-        </div>
-      </div>
-      {rollNumbers.length > 0 && <RollNumbersListComponent rollNumbers={rollNumbers} />}
-    </div>
-    <input type="date" value={date} onChange={handleDateChange} />
-    <button type="submit">Upload</button>
-    </form>
-*/
+export default ImageUploadComponent;
