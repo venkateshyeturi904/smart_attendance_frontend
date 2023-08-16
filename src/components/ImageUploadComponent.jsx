@@ -103,10 +103,10 @@ const ImageUploadComponent=()=> {
             src="https://event.iitg.ac.in/icann2019/Proceedings_LaTeX/2019/IITG_logo.png"
           />
           <form onSubmit={handleSubmit}>
-              <h5>Enter Your Class Id</h5>
+              <h5>Enter Your Course Id</h5>
               <input
                 type="text"
-                placeholder="Class ID"
+                placeholder="Course ID"
                 value={classId}
                 onChange={handleClassIdChange}
               />

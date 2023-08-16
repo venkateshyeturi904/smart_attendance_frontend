@@ -1,9 +1,8 @@
-.bar{
+.bar_graph{
     margin-top:60px;
-    height:550px;
+    width:70%;
     display: flex;
     object-fit: contain;
-    display: flex;
     flex-direction: column;
 }
 

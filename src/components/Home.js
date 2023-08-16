@@ -1,5 +1,5 @@
 import React from 'react'
-import '../App.css'
+import './Home.css'
 import { useNavigate } from 'react-router-dom/dist'
 
 function Home() {
@@ -9,16 +9,16 @@ function Home() {
     }
   return (
     <div className='Home'>
-        <div className='outer-container'>
+        <div className='out-container'>
         <div className='college'>
-        <img
+          <img
             className='Home-image'
             alt=""
             src="https://event.iitg.ac.in/icann2019/Proceedings_LaTeX/2019/IITG_logo.png"
-        />
-        <h1>
+          />
+          <h1>
             INDIAN INSTITUTE OF TECHNOLOGY GUWAHATI
-        </h1>
+          </h1>
         </div>
         <div className='button'>
             <button type="submit" class="Home_upload_button" onClick={handleClick} >Upload Image</button>

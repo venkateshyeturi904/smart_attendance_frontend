@@ -45,7 +45,7 @@ const BarGraph = ({ data }) => {
   };
 
   return (
-    <div className='bar'>
+    <div className='bar_graph'>
         <Bar data={chartData} />
         <form className='radio_input'>
           <label>
