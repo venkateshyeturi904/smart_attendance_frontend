@@ -13,7 +13,7 @@
     justify-content: center;
     margin-left:10%;
     background-color: #ffffff;
-    position: fixed;
+    height:50px;
     opacity:1;
     align-items: center;
   }
@@ -54,18 +54,15 @@
     display:flex;
     margin-top:10px;
   }
-
-  .info-box {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    width:300px;
-    object-fit: contain;
-    padding: 20px;
-    margin-top: 60px;
-    border-radius: 5px;
-    animation: fadeInUp 1s ease-out;
+  
+  .info-box ul li span {
+    font-weight: bold;
   }
   
+  .info-box ul ul {
+    margin-top: 5px;
+    margin-left: 20px;
+  }
   .info-box h3 {
     margin-bottom: 10px;
     color: #333;
@@ -92,19 +89,59 @@
   }
   
   .sub-list {
-    list-style-type: disc; /* Use disc style for sub-bullet points */
+    list-style-type: disc; 
     margin-top: 5px;
-    margin-left: 20px; /* Indent sub-bullet points */
+    margin-left: 20px;
+  }
+
+  .info-button {
+    position: absolute;
+    top: 70px;
+    right: 16%;
   }
   
-  /* Animation keyframes */
-  @keyframes fadeInUp {
+  .info-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    color: grey;
+  }
+  
+  .info-dropdown {
+    position: absolute;
+    top: 100%;
+    right:1%;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    width: 600px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    animation: fadeInDown 0.3s ease-out;
+  }
+
+  @keyframes fadeInDown {
     0% {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(-10px);
     }
     100% {
       opacity: 1;
       transform: translateY(0);
     }
   }
+  
+  /* 
+  
+  .info-box ul li span {
+    font-weight: bold;
+  }
+  
+  .info-box ul ul {
+    margin-top: 5px;
+    margin-left: 20px;
+  }
+  
+  */
