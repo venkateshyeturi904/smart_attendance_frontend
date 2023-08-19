@@ -1,5 +1,5 @@
 import React from 'react'
-import './Home.css'
+import '../CSS/Home.css'
 import { useNavigate } from 'react-router-dom/dist'
 
 function Home() {

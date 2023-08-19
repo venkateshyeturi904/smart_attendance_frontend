@@ -1,5 +1,5 @@
 import React from 'react';
-import '../App.css'
+import '../CSS/App.css'
 import StudentTable from './StudentTable';
 
 const RollNumbersListComponent = ({ student_Data,columns }) => {

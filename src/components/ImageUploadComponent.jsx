@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { uploadImage } from "../services/ImageUploadService";
 import RollNumbersListComponent from "../components/RollNumbersListComponent";
-import "../App.css";
+import "../CSS/App.css";
 
 const ImageUploadComponent=()=> {
   const [selectedFile, setSelectedFile] = useState(null);

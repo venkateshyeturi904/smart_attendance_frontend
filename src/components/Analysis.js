@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './analysis.css';
+import "../CSS/analysis.css";
 import {
   courseId_by_date,
   courseId_by_student,
@@ -130,6 +130,7 @@ function Analysis() {
 
   return (
     <div className="container">
+      <div className="sub-header">
       <div className="analysis-box">
         <h5>Course Id:</h5>
         <input
@@ -189,6 +190,7 @@ function Analysis() {
           </div>
         )}
       </div>
+      </div>
       {courseAttendance.length > 0 && <BarGraph data={courseAttendance} />}
       {studentPresent !== '' && (
         <h1 className="studentPresent">{`Student is ${studentPresent}`}</h1>
@@ -215,4 +217,4 @@ function Analysis() {
   );
 }
 
-export default Analysis;
+export default Analysis;

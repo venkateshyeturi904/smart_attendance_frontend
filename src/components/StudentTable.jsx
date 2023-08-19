@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
-import './table.css'
+import '../CSS/table.css'
 
 const StudentTable = ({ row,col }) => {
   const columns=useMemo(()=>col,[col]);

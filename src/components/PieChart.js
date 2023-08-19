@@ -6,7 +6,7 @@ import {
     Tooltip,
     Legend
 } from 'chart.js'
-import './PieChart.css';
+import '../CSS/PieChart.css';
 ChartJs.register(
     ArcElement,
     Tooltip,

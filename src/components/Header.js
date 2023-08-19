@@ -1,7 +1,7 @@
 import React from 'react'
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from 'react-router-dom';
-import "../App.css"
+import "../CSS/App.css"
 
 function Header() {
   return (

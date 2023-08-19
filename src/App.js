@@ -1,4 +1,4 @@
-import './App.css';
+import './CSS/App.css';
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import ImageUploadComponent from './components/ImageUploadComponent';
 import Header from './components/Header';
