@@ -11,14 +11,68 @@ const ImageUploadComponent=()=> {
   const [studentData,setStudentData]=useState([]);
   const COLUMNS = [
     {
-      Header: 'Student ID',
-      accessor: 'student_id',
+      Header: 'Student Name',
+      accessor: 'studentName',
     },
     {
-      Header: 'Student Name',
-      accessor: 'student_name',
+      Header: 'Student ID',
+      accessor: 'studentID',
+    },
+    {
+      Header: 'Present/Absent',
+      accessor: 'attendance',
+      Cell: ({ value }) => (value ? 'Present' : 'Absent'),
     },
   ];
+  const data = [
+    {
+      studentName: 'John Doe',
+      studentID: '12345',
+      attendance: true, // Present
+    },
+    {
+      studentName: 'Jane Smith',
+      studentID: '67890',
+      attendance: false, // Absent
+    },
+    {
+      studentName: 'Michael Johnson',
+      studentID: '54321',
+      attendance: true, // Present
+    },
+    {
+      studentName: 'Emily Brown',
+      studentID: '98765',
+      attendance: true, // Present
+    },
+    {
+      studentName: 'William Lee',
+      studentID: '13579',
+      attendance: false, // Absent
+    },
+    {
+      studentName: 'Olivia Davis',
+      studentID: '24680',
+      attendance: true, // Present
+    },
+    {
+      studentName: 'James Wilson',
+      studentID: '11111',
+      attendance: false, // Absent
+    },
+    {
+      studentName: 'Sophia Taylor',
+      studentID: '22222',
+      attendance: true, // Present
+    },
+    {
+      studentName: 'Liam Anderson',
+      studentID: '33333',
+      attendance: true, // Present
+    }
+  ]
+  
+  
 
   const handleFileChange = (e) => {
     console.log("fileData", e.target.files);
@@ -44,28 +98,28 @@ const ImageUploadComponent=()=> {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStudentData(data);
+    // if (!selectedFile) {
+    //   alert("Please select an image to upload.");
+    //   return;
+    // }
 
-    if (!selectedFile) {
-      alert("Please select an image to upload.");
-      return;
-    }
+    // if (!classId || !date) {
+    //   alert("Please enter Class ID and Date.");
+    //   return;
+    // }
 
-    if (!classId || !date) {
-      alert("Please enter Class ID and Date.");
-      return;
-    }
+    // const formData = new FormData();
+    // formData.append("image", selectedFile);
+    // formData.append("classId", classId);
+    // formData.append("date", date);
 
-    const formData = new FormData();
-    formData.append("image", selectedFile);
-    formData.append("classId", classId);
-    formData.append("date", date);
-
-    try {
-      const response = await uploadImage(formData);
-      setStudentData(response); 
-    } catch (error) {
-      console.error("Error uploading image:", error);
-    }
+    // try {
+    //   const response = await uploadImage(formData);
+    //   setStudentData(response); 
+    // } catch (error) {
+    //   console.error("Error uploading image:", error);
+    // }
   };
 
   return (
@@ -143,7 +197,7 @@ const ImageUploadComponent=()=> {
           </div>
           <div>
             {studentData.length > 0 ? (
-               <RollNumbersListComponent student_Data={studentData} columns={COLUMNS} />
+               <RollNumbersListComponent student_Data={studentData} columns={COLUMNS} setData={setStudentData}/>
             ):<></>}
           </div>
       </div>

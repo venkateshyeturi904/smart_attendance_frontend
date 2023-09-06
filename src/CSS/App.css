@@ -242,3 +242,20 @@
   color: white;
   text-align: center;
 }
+
+.submit{
+  text-align: center;
+  justify-content: center;
+  background: #f0c14b;
+  border-radius: 2px;
+  width: 200px;
+  height: 30px;
+  border: 1px solid;
+  border-color: #a88734 #9c7e31 #846a29;
+  margin-left:25%;
+  margin-top:2%;
+}
+
+.submit:hover{
+  background-color: orange;
+}
