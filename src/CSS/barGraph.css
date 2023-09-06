@@ -1,9 +1,10 @@
-.bar{
+.bar_graph{
     margin-top:60px;
-    height:550px;
+    width:80%;
     display: flex;
     object-fit: contain;
-    display: flex;
+    margin-left:10%;
+    justify-content:center;
     flex-direction: column;
 }
 
@@ -16,6 +17,3 @@
     margin-right:5px;
     margin-left:5px;
 }
-
-
-

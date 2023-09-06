@@ -242,38 +242,3 @@
   color: white;
   text-align: center;
 }
-
-.Home{
-  display:flex;
-  flex-direction: column;
-}
-
-.college{
-  display: flex;
-  align-items: center;
-}
-
-.Home>h1{
-  margin-top: 20px;
-  margin-left:10px;
-  color: black;
-}
-
-.Home-image{
-  object-fit: contain;
-  width: 100px;
-}
-
-.Home_upload_button{
-    background: #f0c14b;
-    border-radius: 2px;
-    width: 200px;
-    height: 30px;
-    border: 1px solid;
-    margin-top: 10px;
-    border-color: #a88734 #9c7e31 #846a29;
-}
-
-.button{
-  align-items: center;
-}

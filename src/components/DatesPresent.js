@@ -1,5 +1,5 @@
 import React from 'react';
-import './DatesPresent.css'
+import '../CSS/DatesPresent.css'
 import StudentTable from './StudentTable';
 
 const DatesPresent = ({ student_Data,columns }) => {
