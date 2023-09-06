@@ -4,11 +4,14 @@ import RollNumbersListComponent from "../components/RollNumbersListComponent";
 import "../CSS/App.css";
 
 const ImageUploadComponent=()=> {
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
   const [classId, setClassId] = useState("");
   const [date, setDate] = useState("");
-  const [previewImage, setPreviewImage] = useState(null);
+  const [previewImages, setPreviewImages] = useState([]);
   const [studentData,setStudentData]=useState([]);
+  const [currentPage, setCurrentPage] = useState(0); // Track the current page
+  const imagesPerPage = 1; // Number of images to display per page
+
   const COLUMNS = [
     {
       Header: 'Student Name',
@@ -24,67 +27,72 @@ const ImageUploadComponent=()=> {
       Cell: ({ value }) => (value ? 'Present' : 'Absent'),
     },
   ];
-  const data = [
-    {
-      studentName: 'John Doe',
-      studentID: '12345',
-      attendance: true, // Present
-    },
-    {
-      studentName: 'Jane Smith',
-      studentID: '67890',
-      attendance: false, // Absent
-    },
-    {
-      studentName: 'Michael Johnson',
-      studentID: '54321',
-      attendance: true, // Present
-    },
-    {
-      studentName: 'Emily Brown',
-      studentID: '98765',
-      attendance: true, // Present
-    },
-    {
-      studentName: 'William Lee',
-      studentID: '13579',
-      attendance: false, // Absent
-    },
-    {
-      studentName: 'Olivia Davis',
-      studentID: '24680',
-      attendance: true, // Present
-    },
-    {
-      studentName: 'James Wilson',
-      studentID: '11111',
-      attendance: false, // Absent
-    },
-    {
-      studentName: 'Sophia Taylor',
-      studentID: '22222',
-      attendance: true, // Present
-    },
-    {
-      studentName: 'Liam Anderson',
-      studentID: '33333',
-      attendance: true, // Present
-    }
-  ]
+  // const data = [
+  //   {
+  //     studentName: 'John Doe',
+  //     studentID: '12345',
+  //     attendance: true, // Present
+  //   },
+  //   {
+  //     studentName: 'Jane Smith',
+  //     studentID: '67890',
+  //     attendance: false, // Absent
+  //   },
+  //   {
+  //     studentName: 'Michael Johnson',
+  //     studentID: '54321',
+  //     attendance: true, // Present
+  //   },
+  //   {
+  //     studentName: 'Emily Brown',
+  //     studentID: '98765',
+  //     attendance: true, // Present
+  //   },
+  //   {
+  //     studentName: 'William Lee',
+  //     studentID: '13579',
+  //     attendance: false, // Absent
+  //   },
+  //   {
+  //     studentName: 'Olivia Davis',
+  //     studentID: '24680',
+  //     attendance: true, // Present
+  //   },
+  //   {
+  //     studentName: 'James Wilson',
+  //     studentID: '11111',
+  //     attendance: false, // Absent
+  //   },
+  //   {
+  //     studentName: 'Sophia Taylor',
+  //     studentID: '22222',
+  //     attendance: true, // Present
+  //   },
+  //   {
+  //     studentName: 'Liam Anderson',
+  //     studentID: '33333',
+  //     attendance: true, // Present
+  //   }
+  // ]
   
   
 
   const handleFileChange = (e) => {
-    console.log("fileData", e.target.files);
-    const file = e.target.files[0];
-    setSelectedFile(file);
-    if (file) {
+    const files = Array.from(e.target.files);
+    setSelectedFiles(files);
+    setCurrentPage(0);
+
+    const previews = files.map((file) => {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setPreviewImage(e.target.result);
-      };
       reader.readAsDataURL(file);
-    }
+      return new Promise((resolve) => {
+        reader.onload = (e) => resolve(e.target.result);
+      });
+    });
+
+    Promise.all(previews).then((images) => {
+      setPreviewImages(images);
+    });
   };
 
   const handleClassIdChange = (e) => {
@@ -98,55 +106,95 @@ const ImageUploadComponent=()=> {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStudentData(data);
-    // if (!selectedFile) {
-    //   alert("Please select an image to upload.");
-    //   return;
-    // }
+    // setStudentData(data);
+    if (!selectedFiles) {
+      alert("Please select an image to upload.");
+      return;
+    }
 
-    // if (!classId || !date) {
-    //   alert("Please enter Class ID and Date.");
-    //   return;
-    // }
+    if (!classId || !date) {
+      alert("Please enter Class ID and Date.");
+      return;
+    }
 
-    // const formData = new FormData();
-    // formData.append("image", selectedFile);
-    // formData.append("classId", classId);
-    // formData.append("date", date);
+    const formData = new FormData();
+    formData.append("image", selectedFiles);
+    formData.append("classId", classId);
+    formData.append("date", date);
 
-    // try {
-    //   const response = await uploadImage(formData);
-    //   setStudentData(response); 
-    // } catch (error) {
-    //   console.error("Error uploading image:", error);
-    // }
+    try {
+      const response = await uploadImage(formData);
+      console.log(response);
+      setStudentData(response); 
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
   };
+
+  const handleNextPage = () => {
+    if (currentPage < Math.ceil(previewImages.length / imagesPerPage) - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
 
   return (
     <div>
       <div className="outer-container" >
         <div className='preview_box'>
         <div className="file-container">
-            {previewImage ? (
-              <img
-                src={previewImage}
-                alt=""
-                className="image_preview_side"
-              />
+        {previewImages.length > 0 ? (
+              previewImages.slice(
+                currentPage * imagesPerPage,
+                (currentPage + 1) * imagesPerPage
+              ).map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Preview ${index}`}
+                  className="image_preview_side"
+                />
+              ))
             ) : (
               <img
-                src={
-                  "https://img.freepik.com/free-vector/output_53876-25529.jpg"
-                }
+                src={"https://img.freepik.com/free-vector/output_53876-25529.jpg"}
                 alt=""
                 className="image_preview_side"
               />
             )}
+            {
+              previewImages.length>0?(
+                <div className="pagination-buttons">
+                <button
+                  onClick={handlePreviousPage}
+                  disabled={currentPage === 0}
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={handleNextPage}
+                  disabled={
+                    currentPage ===
+                    Math.ceil(previewImages.length / imagesPerPage) - 1
+                  }
+                >
+                  Next
+                </button>
+              </div>
+              ):<></>
+            }
             <input
               id="imageInputA"
               type="file"
               onChange={handleFileChange}
               accept="image/*"
+              multiple
             />
           </div>
         </div>
@@ -170,35 +218,59 @@ const ImageUploadComponent=()=> {
             <h5 style={{ textAlign: "center" }}>Image Upload</h5>
           </div>
           <div className="file-container">
-            {previewImage ? (
-              <img
-                src={previewImage}
-                alt=""
-                className="image_preview"
-              />
+          {previewImages.length > 0 ? (
+              previewImages.slice(
+                currentPage * imagesPerPage,
+                (currentPage + 1) * imagesPerPage
+              ).map((image, index) => (
+                <img
+                  key={index}
+                  src={image}
+                  alt={`Preview ${index}`}
+                  className="image_preview"
+                />
+              ))
             ) : (
               <img
-                src={
-                  "https://img.freepik.com/free-vector/output_53876-25529.jpg"
-                }
+                src={"https://img.freepik.com/free-vector/output_53876-25529.jpg"}
                 alt=""
                 className="image_preview"
               />
             )}
+            {
+              previewImages.length>0?(
+                <div className="pagination-buttons">
+                <button
+                  onClick={handlePreviousPage}
+                  disabled={currentPage === 0}
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={handleNextPage}
+                  disabled={
+                    currentPage ===
+                    Math.ceil(previewImages.length / imagesPerPage) - 1
+                  }
+                >
+                  Next
+                </button>
+              </div>
+              ):<></>
+            }
             <input
               id="imageInputA"
               type="file"
               onChange={handleFileChange}
               accept="image/*"
+              multiple
             />
           </div>
               <button type="submit" class="upload_button">Upload</button>
           </form>
           </div>
           <div>
-            {studentData.length > 0 ? (
-               <RollNumbersListComponent student_Data={studentData} columns={COLUMNS} setData={setStudentData}/>
-            ):<></>}
+            <RollNumbersListComponent student_Data={studentData} columns={COLUMNS} setData={setStudentData}/>
           </div>
       </div>
     </div>

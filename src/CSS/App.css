@@ -111,7 +111,7 @@
 
 .box {
   width: 400px;
-  height: fit-content;
+  height: 570px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
@@ -124,7 +124,7 @@
 
 .preview_box {
   width: 400px;
-  height:540px;
+  height:570px;
   object-fit: contain;
   display: flex;
   flex-direction: column;
@@ -138,7 +138,7 @@
 
 .rollnumber_box {
   width: 500px;
-  height: 540px;
+  height: 570px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
