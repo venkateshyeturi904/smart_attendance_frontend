@@ -9,8 +9,7 @@ import {
     Tooltip,
     Legend
  } from 'chart.js';
- import './barGraph.css'
-import StudentTable from './StudentTable';
+ import '../CSS/barGraph.css'
 ChartJs.register(
     BarElement,
     CategoryScale,
@@ -24,17 +23,17 @@ const BarGraph = ({ data }) => {
   const [dataType, setDataType] = useState('date');
   const dateData=data[0];
   const studentData=data[1];
-  const dates = dateData.map(entry => entry.date);
-  const studentCounts = dateData.map(entry => entry.studentCount);
+  const dates = dateData.map(entry => entry[0]);
+  const studentCounts = dateData.map(entry => entry[1]);
 
-  const studentId=studentData.map(entry=>entry.studentId);
-  const studentAttended=studentData.map(entry=>entry.classesAttended);
+  const studentId=studentData.map(entry=>entry[0]);
+  const studentAttended=studentData.map(entry=>entry[1]);
 
   const chartData = {
     labels: dataType === 'date'?dates:studentId,
     datasets: [
       {
-        label: 'Number of Students',
+        label: dataType === 'date'?'Number of Students':'Number of classes attended',
         backgroundColor: 'rgba(75,192,192,0.4)',
         borderColor: 'rgba(75,192,192,1)',
         borderWidth: 1,
@@ -46,7 +45,7 @@ const BarGraph = ({ data }) => {
   };
 
   return (
-    <div className='bar'>
+    <div className='bar_graph'>
         <Bar data={chartData} />
         <form className='radio_input'>
           <label>

@@ -1,24 +1,10 @@
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
-import './table.css'
+import '../CSS/table.css'
 
-const StudentTable = ({ row }) => {
-  const COLUMNS = [
-    {
-      Header: 'Student ID',
-      accessor: 'studentId',
-    },
-    {
-      Header: 'Student Name',
-      accessor: 'studentName',
-    },
-  ];
-  const columns=useMemo(()=>COLUMNS,[]);
-//   const presentdata=[];
-//   row.forEach(element => {
-//     if(element.status=='Present')presentdata.push(element);
-//   });
-  const data=useMemo(()=>row,[]);
+const StudentTable = ({ row,col }) => {
+  const columns=useMemo(()=>col,[col]);
+  const data=useMemo(()=>row,[row]);
 
   const {
     getTableProps,
@@ -61,5 +47,3 @@ const StudentTable = ({ row }) => {
 };
 
 export default StudentTable;
-
-

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { uploadImage } from "../services/ImageUploadService";
 import RollNumbersListComponent from "../components/RollNumbersListComponent";
-import "../App.css";
-import { useNavigate } from "react-router-dom/dist";
+import "../CSS/App.css";
 
 const ImageUploadComponent=()=> {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -10,107 +9,14 @@ const ImageUploadComponent=()=> {
   const [date, setDate] = useState("");
   const [previewImage, setPreviewImage] = useState(null);
   const [studentData,setStudentData]=useState([]);
-
-  const Data = [
+  const COLUMNS = [
     {
-      studentId: '1',
-      studentName: 'John Doe',
-      status: 'Present',
+      Header: 'Student ID',
+      accessor: 'student_id',
     },
     {
-      studentId: '2',
-      studentName: 'Jane Smith',
-      status: 'Absent',
-    },
-    {
-      studentId: 3,
-      studentName: 'Michael Johnson',
-      status: 'Present',
-    },
-    {
-      studentId: 4,
-      studentName: 'Emily Brown',
-      status: 'Absent',
-    },
-    {
-      studentId: 5,
-      studentName: 'William Jones',
-      status: 'Present',
-    },
-    {
-      studentId: 6,
-      studentName: 'Olivia Wilson',
-      status: 'Present',
-    },
-    {
-      studentId: 7,
-      studentName: 'James Davis',
-      status: 'Absent',
-    },
-    {
-      studentId: 8,
-      studentName: 'Sophia Martinez',
-      status: 'Absent',
-    },
-    {
-      studentId: 9,
-      studentName: 'Benjamin Anderson',
-      status: 'Present',
-    },
-    {
-      studentId: 10,
-      studentName: 'Ava Taylor',
-      status: 'Present',
-    },
-    {
-      studentId: 11,
-      studentName: 'Ethan Wilson',
-      status: 'Absent',
-    },
-    {
-      studentId: 12,
-      studentName: 'Isabella Harris',
-      status: 'Present',
-    },
-    {
-      studentId: 13,
-      studentName: 'Alexander Martin',
-      status: 'Absent',
-    },
-    {
-      studentId: 14,
-      studentName: 'Mia Lee',
-      status: 'Absent',
-    },
-    {
-      studentId: 15,
-      studentName: 'Daniel Robinson',
-      status: 'Present',
-    },
-    {
-      studentId: 16,
-      studentName: 'Charlotte Turner',
-      status: 'Present',
-    },
-    {
-      studentId: 17,
-      studentName: 'Liam White',
-      status: 'Absent',
-    },
-    {
-      studentId: 18,
-      studentName: 'Amelia Rodriguez',
-      status: 'Absent',
-    },
-    {
-      studentId: 19,
-      studentName: 'Henry Scott',
-      status: 'Present',
-    },
-    {
-      studentId: 20,
-      studentName: 'Ella Adams',
-      status: 'Present',
+      Header: 'Student Name',
+      accessor: 'student_name',
     },
   ];
 
@@ -154,15 +60,12 @@ const ImageUploadComponent=()=> {
     formData.append("classId", classId);
     formData.append("date", date);
 
-    console.log(typeof(formData));
     try {
       const response = await uploadImage(formData);
-      setStudentData(response); // Assuming the response data is an array of roll numbers
-      // navigate('/students');
+      setStudentData(response); 
     } catch (error) {
       console.error("Error uploading image:", error);
     }
-    // setStudentData(Data);
   };
 
   return (
@@ -173,7 +76,7 @@ const ImageUploadComponent=()=> {
             {previewImage ? (
               <img
                 src={previewImage}
-                alt="Image Preview"
+                alt=""
                 className="image_preview_side"
               />
             ) : (
@@ -181,7 +84,7 @@ const ImageUploadComponent=()=> {
                 src={
                   "https://img.freepik.com/free-vector/output_53876-25529.jpg"
                 }
-                alt="Image Preview"
+                alt=""
                 className="image_preview_side"
               />
             )}
@@ -196,13 +99,14 @@ const ImageUploadComponent=()=> {
         <div className="box">
           <img
             className="IITG_logo"
+            alt=""
             src="https://event.iitg.ac.in/icann2019/Proceedings_LaTeX/2019/IITG_logo.png"
           />
           <form onSubmit={handleSubmit}>
-              <h5>Enter Your Class Id</h5>
+              <h5>Enter Your Course Id</h5>
               <input
                 type="text"
-                placeholder="Class ID"
+                placeholder="Course ID"
                 value={classId}
                 onChange={handleClassIdChange}
               />
@@ -215,7 +119,7 @@ const ImageUploadComponent=()=> {
             {previewImage ? (
               <img
                 src={previewImage}
-                alt="Image Preview"
+                alt=""
                 className="image_preview"
               />
             ) : (
@@ -223,7 +127,7 @@ const ImageUploadComponent=()=> {
                 src={
                   "https://img.freepik.com/free-vector/output_53876-25529.jpg"
                 }
-                alt="Image Preview"
+                alt=""
                 className="image_preview"
               />
             )}
@@ -239,7 +143,7 @@ const ImageUploadComponent=()=> {
           </div>
           <div>
             {studentData.length > 0 ? (
-               <RollNumbersListComponent student_Data={studentData} />
+               <RollNumbersListComponent student_Data={studentData} columns={COLUMNS} />
             ):<></>}
           </div>
       </div>
