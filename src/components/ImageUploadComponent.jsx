@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { uploadImage } from "../services/ImageUploadService";
+import { uploadImage ,uploadAttended} from "../services/ImageUploadService";
 import RollNumbersListComponent from "../components/RollNumbersListComponent";
 import "../CSS/App.css";
 
@@ -11,15 +11,16 @@ const ImageUploadComponent=()=> {
   const [studentData,setStudentData]=useState([]);
   const [currentPage, setCurrentPage] = useState(0); // Track the current page
   const imagesPerPage = 1; // Number of images to display per page
-
+  const [flagSubmit,setFlagSubmit]=useState(false);
+  const [flagUpload,setFlagUplaod]=useState(false);
   const COLUMNS = [
     {
       Header: 'Student Name',
-      accessor: 'studentName',
+      accessor: 'student_name',
     },
     {
       Header: 'Student ID',
-      accessor: 'studentID',
+      accessor: 'student_id',
     },
     {
       Header: 'Present/Absent',
@@ -27,55 +28,6 @@ const ImageUploadComponent=()=> {
       Cell: ({ value }) => (value ? 'Present' : 'Absent'),
     },
   ];
-  // const data = [
-  //   {
-  //     studentName: 'John Doe',
-  //     studentID: '12345',
-  //     attendance: true, // Present
-  //   },
-  //   {
-  //     studentName: 'Jane Smith',
-  //     studentID: '67890',
-  //     attendance: false, // Absent
-  //   },
-  //   {
-  //     studentName: 'Michael Johnson',
-  //     studentID: '54321',
-  //     attendance: true, // Present
-  //   },
-  //   {
-  //     studentName: 'Emily Brown',
-  //     studentID: '98765',
-  //     attendance: true, // Present
-  //   },
-  //   {
-  //     studentName: 'William Lee',
-  //     studentID: '13579',
-  //     attendance: false, // Absent
-  //   },
-  //   {
-  //     studentName: 'Olivia Davis',
-  //     studentID: '24680',
-  //     attendance: true, // Present
-  //   },
-  //   {
-  //     studentName: 'James Wilson',
-  //     studentID: '11111',
-  //     attendance: false, // Absent
-  //   },
-  //   {
-  //     studentName: 'Sophia Taylor',
-  //     studentID: '22222',
-  //     attendance: true, // Present
-  //   },
-  //   {
-  //     studentName: 'Liam Anderson',
-  //     studentID: '33333',
-  //     attendance: true, // Present
-  //   }
-  // ]
-  
-  
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -116,16 +68,40 @@ const ImageUploadComponent=()=> {
       alert("Please enter Class ID and Date.");
       return;
     }
-
-    const formData = new FormData();
-    formData.append("image", selectedFiles);
-    formData.append("classId", classId);
-    formData.append("date", date);
-
+    setFlagUplaod(true);
     try {
-      const response = await uploadImage(formData);
-      console.log(response);
-      setStudentData(response); 
+      let studentsname_rollnumbers=[];
+      let rollnumbers=[]
+      for(let i=0;i<selectedFiles.length;i++){
+        const formData = new FormData();
+        formData.append("images", selectedFiles[i]);
+        formData.append("classId", classId);
+        formData.append("date", date);
+        const response = await uploadImage(formData);
+        studentsname_rollnumbers=studentsname_rollnumbers.concat(response[0]);
+        rollnumbers=rollnumbers.concat(response[1]);
+      }
+      rollnumbers=[...new Set(rollnumbers)];
+      const uniqueArray = [];
+      const seen = new Set();
+      for (const obj of studentsname_rollnumbers) {
+      if (!seen.has(obj.student_id)) {
+        seen.add(obj.student_id);
+        uniqueArray.push(obj);
+      }
+      }
+      studentsname_rollnumbers=uniqueArray;
+      console.log(studentsname_rollnumbers);
+      const attendanceList = studentsname_rollnumbers.map(student => ({
+        student_name: student.student_name,
+        student_id: student.student_id,
+        attendance: rollnumbers.includes(student.student_id)
+      }));
+      console.log(rollnumbers)
+      console.log(attendanceList);
+      setFlagSubmit(false);
+      setStudentData(attendanceList); 
+      setFlagUplaod(false);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
@@ -142,13 +118,39 @@ const ImageUploadComponent=()=> {
       setCurrentPage(currentPage - 1);
     }
   };
-
+  
+  const handleSubmitAttendance=async()=>{
+    let attended=[];
+    studentData.forEach((obj)=>{
+        if(obj.attendance){
+          attended.push(obj.student_id);
+        }
+    })
+    console.log(attended)
+    try{
+      const formData = {
+         rollNos : attended,
+        classId : classId,
+        date : date
+      }
+      const response = await uploadAttended(formData);
+      setFlagSubmit(response);
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+    
+  }
 
   return (
     <div>
       <div className="outer-container" >
         <div className='preview_box'>
         <div className="file-container">
+        {
+              <h2>
+                Preview
+              </h2>
+            }
         {previewImages.length > 0 ? (
               previewImages.slice(
                 currentPage * imagesPerPage,
@@ -177,6 +179,12 @@ const ImageUploadComponent=()=> {
                 >
                   Previous
                 </button>
+                <span>
+                  {' '}
+                  {Math.min((currentPage + 1), previewImages.length)}/{' '}
+                  {previewImages.length}
+                  {' '}
+                </span>
                 <button
                   onClick={handleNextPage}
                   disabled={
@@ -189,13 +197,13 @@ const ImageUploadComponent=()=> {
               </div>
               ):<></>
             }
-            <input
+            {/* <input
               id="imageInputA"
               type="file"
               onChange={handleFileChange}
               accept="image/*"
               multiple
-            />
+            /> */}
           </div>
         </div>
         <div className="box">
@@ -218,7 +226,7 @@ const ImageUploadComponent=()=> {
             <h5 style={{ textAlign: "center" }}>Image Upload</h5>
           </div>
           <div className="file-container">
-          {previewImages.length > 0 ? (
+          {/* {previewImages.length > 0 ? (
               previewImages.slice(
                 currentPage * imagesPerPage,
                 (currentPage + 1) * imagesPerPage
@@ -257,7 +265,7 @@ const ImageUploadComponent=()=> {
                 </button>
               </div>
               ):<></>
-            }
+            } */}
             <input
               id="imageInputA"
               type="file"
@@ -266,11 +274,11 @@ const ImageUploadComponent=()=> {
               multiple
             />
           </div>
-              <button type="submit" class="upload_button">Upload</button>
+              <button type="submit" class="upload_button">{(flagUpload)?"Processing":"Upload"}</button>
           </form>
           </div>
           <div>
-            <RollNumbersListComponent student_Data={studentData} columns={COLUMNS} setData={setStudentData}/>
+            <RollNumbersListComponent student_Data={studentData} handleSubmit={handleSubmitAttendance} columns={COLUMNS} flag={flagSubmit} setData={setStudentData}/>
           </div>
       </div>
     </div>
