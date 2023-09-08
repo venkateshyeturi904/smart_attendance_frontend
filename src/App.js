@@ -27,7 +27,7 @@ function App() {
           )}/>
         </Routes> 
         <footer className="footer">
-          <span className='footer-text'>&copy; 2023 My App. All rights reserved.</span>
+          <span className='footer-text'>&copy; 2023 IITGuwahati. All rights reserved.</span>
         </footer>
       </div>
       </Router>
