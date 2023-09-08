@@ -11,7 +11,7 @@
   border: 1px solid lightgray; */
   object-fit:contain;
   justify-content: center;
-  /* margin-left:10%; */
+  margin-top:5px;
   background-color: #ffffff;
   height:50px;
   opacity:1;
@@ -46,7 +46,7 @@
 }
 
 .submit_button:hover {
-  background-color: #b38900;
+  background-color: orange;
 }
 
 .studentPresent{

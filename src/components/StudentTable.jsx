@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
-import { useTable } from 'react-table';
-import '../CSS/table.css'
+import React, { useMemo, useState } from 'react';
+import { useTable, useRowSelect } from 'react-table';
+import '../CSS/table.css';
 
-const StudentTable = ({ row,col }) => {
-  const columns=useMemo(()=>col,[col]);
+const StudentTable = ({ row, col ,setData }) => {
+  const columns = useMemo(() => col, [col]);
   const data=useMemo(()=>row,[row]);
 
   const {
@@ -12,29 +12,60 @@ const StudentTable = ({ row,col }) => {
     headerGroups,
     prepareRow,
     rows,
-  } = useTable({
-    columns,
-    data,
-  });
+    selectedFlatRows,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useRowSelect,
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => [
+        {
+          id: 'selection',
+          Header: 'Checkbox',
+          Cell: ({ row }) => {
+            const handleCheck=()=>{
+                const newData = data.map((d) =>
+                  d=== row.original
+                    ? { ...row.original,attendance: !row.original.attendance }
+                    : d
+                );
+                setData([...newData]);
+              // row.toggleRowSelected();
+            }
+            return (
+              <input
+                type="checkbox"
+                checked={row.original.attendance == true}
+                onChange={() =>handleCheck() }
+              />
+            );
+          },
+        },
+        ...columns,
+      ]);
+    }
+  );
 
   return (
-    <div className='table-container'>
+    <div className="table-container">
       <table {...getTableProps()} className="student-table">
-        <thead className='fixed-header'>
-          {headerGroups.map(headerGroup => (
+        <thead className="fixed-header">
+          {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map(column => (
+              {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps()}>{column.render('Header')}</th>
               ))}
             </tr>
           ))}
         </thead>
         <tbody {...getTableBodyProps()} className="table-body">
-          {rows.map(row => {
+          {rows.map((row) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map(cell => {
+                {row.cells.map((cell) => {
                   return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>;
                 })}
               </tr>

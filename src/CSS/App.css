@@ -111,12 +111,13 @@
 
 .box {
   width: 400px;
-  height: fit-content;
+  height: 570px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
   border: 1px solid lightgray;
   padding: 30px;
+  padding-top:5%;
   margin-top: 30px;
   margin-left:1%;
   align-items: center;
@@ -124,7 +125,7 @@
 
 .preview_box {
   width: 400px;
-  height:540px;
+  height:570px;
   object-fit: contain;
   display: flex;
   flex-direction: column;
@@ -138,7 +139,7 @@
 
 .rollnumber_box {
   width: 500px;
-  height: 540px;
+  height: 570px;
   display: flex;
   flex-direction: column;
   border-radius: 5px;
@@ -197,7 +198,7 @@
   height:60px;
   display:flex;
   align-items:center;
-  background-color: #000000;
+  background-color:rgba(0, 0, 0, 0.71);
   position: sticky;
   top:0;
   z-index:100;
@@ -233,7 +234,7 @@
 }
 
 .footer{
-  background-color:black;
+  background-color:rgba(0, 0, 0, 0.71);
   padding: '10px';
   text-align: center;
 }
@@ -242,3 +243,17 @@
   color: white;
   text-align: center;
 }
+
+.submit{
+  text-align: center;
+  justify-content: center;
+  background: #f0c14b;
+  border-radius: 2px;
+  width: 200px;
+  height: 30px;
+  border: 1px solid;
+  border-color: #a88734 #9c7e31 #846a29;
+  margin-left:25%;
+  margin-top:2%;
+}
+
