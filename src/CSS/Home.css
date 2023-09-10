@@ -1,42 +1,51 @@
-.Home{
-    display:flex;
-    flex-direction: column;
-  }
+.Home {
+  display: flex;
+  flex-direction: column;
+  background-color: #f5f5f5; /* Add a background color */
+  height: 100vh; /* Make sure the container takes the full viewport height */
+}
 
-  .college{
-    display: flex;
-    align-items: center;
-  }
+.college {
+  display: flex;
+  align-items: center;
+}
 
-  .Home>h1{
-    margin-top: 20px;
-    margin-left:10px;
-    color: black;
-  }
-  
-  .Home-image{
-    object-fit: contain;
-    width: 50px;
-  }
-  
-  .Home_upload_button{
-      background: #f0c14b;
-      border-radius: 2px;
-      width: 200px;
-      height: 30px;
-      border: 1px solid;
-      margin-top: 10px;
-      border-color: #a88734 #9c7e31 #846a29;
-  }
-  
-  .button{
-    align-items: center;
-  }
+.Home > h1 {
+  margin-top: 20px;
+  margin-left: 10px;
+  color: black;
+}
 
-  .out-container {
-    background-color: white;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.Home-image {
+  object-fit: contain;
+  width: 50px;
+}
+
+.Home_upload_button {
+  background: #f0c14b;
+  border-radius: 2px;
+  width: 200px;
+  height: 30px;
+  border: 1px solid;
+  margin-top: 10px;
+  border-color: #a88734 #9c7e31 #846a29;
+  cursor: pointer; /* Add pointer cursor for better UX */
+  transition: background-color 0.3s; /* Add a smooth transition for the background color */
+}
+
+.Home_upload_button:hover {
+  background-color: #e0b740; /* Change the background color on hover */
+}
+
+.button {
+  display: flex; /* Change to display: flex to center the button */
+  justify-content: center;
+}
+
+.out-container {
+  background-color: white;
+  height: 100%; /* Use 100% instead of 100vh for better compatibility */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
