@@ -201,7 +201,7 @@
   background-color:rgba(0, 0, 0, 0.71);
   position: sticky;
   top:0;
-  z-index:100;
+  backdrop-filter: blur(100px);
 }
 
 .logo{
@@ -237,6 +237,11 @@
   background-color:rgba(0, 0, 0, 0.71);
   padding: '10px';
   text-align: center;
+  justify-content: center;
+  bottom:0;
+  left:0;
+  right:0;
+  /* position: fixed; */
 }
 
 .footer-text{
