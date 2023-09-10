@@ -1,0 +1,11 @@
+.custom-footer{
+    height : 30px;
+}
+
+.custom-footer-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height : 50%; */
+}
+

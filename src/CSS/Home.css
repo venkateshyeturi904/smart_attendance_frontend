@@ -2,14 +2,77 @@
   display: flex;
   flex-direction: column;
   background-color: #f5f5f5; /* Add a background color */
-  height: 100vh; /* Make sure the container takes the full viewport height */
+  /* padding-top : 50px; */
+  height: 88vh; /* Make sure the container takes the full viewport height */
 }
 
 .college {
   display: flex;
   align-items: center;
+  padding-top: 5px;
+
+}
+.college img{
+  margin-right : 10px;
 }
 
+.college-name{
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.home-content{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.image-container {
+  display: flex;
+  flex-direction: row;
+  gap : 20px;
+  align-items: center; /* Optional: Centers images vertically */
+}
+
+.instructions{
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  gap : 160px;
+  align-items: center;
+}
+
+.image-container img {
+  margin-right: 10px; /* Adjust the right margin to control the gap between images */
+}
+.arrow{
+  font-size : 80px;
+  margin : 0 30px;
+}
+
+
+.portal-title {
+  margin-top: 10px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color:#9c7e31;
+  display : flex;
+  justify-content: center;
+}
+
+.image-upload-portal-title{
+  margin-top: 20px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  
+  display : flex;
+  justify-content: center;
+}
+
+.upload-page-upper-div{
+  margin-bottom: -60px;
+}
+.upload-page-lower-div{
+
+}
 .Home > h1 {
   margin-top: 20px;
   margin-left: 10px;
@@ -19,6 +82,13 @@
 .Home-image {
   object-fit: contain;
   width: 50px;
+}
+
+.custom-tick-position{
+  color:lawngreen;
+  vertical-align: middle;
+  margin-top: 5px;
+  margin-left : 3px;
 }
 
 .Home_upload_button {
@@ -39,7 +109,10 @@
 
 .button {
   display: flex; /* Change to display: flex to center the button */
+  width: 340px;
   justify-content: center;
+  align-items: center;
+  margin-top: 120px;
 }
 
 .out-container {

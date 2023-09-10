@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { uploadImage ,uploadAttended} from "../services/ImageUploadService";
 import RollNumbersListComponent from "../components/RollNumbersListComponent";
 import "../CSS/App.css";
+import 'font-awesome/css/font-awesome.min.css';
+
 
 const ImageUploadComponent=()=> {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -143,6 +145,10 @@ const ImageUploadComponent=()=> {
 
   return (
     <div>
+    <div className='upload-page-upper-div'>
+      <h2 className = 'image-upload-portal-title'>Upload Image & Confirm Attendance <i className="fa fa-check custom-tick-position"></i> </h2>
+    </div>
+    <div className = 'upload-page-lower-div'>
       <div className="outer-container" >
         <div className='preview_box'>
         <div className="file-container">
@@ -281,6 +287,7 @@ const ImageUploadComponent=()=> {
             <RollNumbersListComponent student_Data={studentData} handleSubmit={handleSubmitAttendance} columns={COLUMNS} flag={flagSubmit} setData={setStudentData}/>
           </div>
       </div>
+    </div>
     </div>
   );
 }

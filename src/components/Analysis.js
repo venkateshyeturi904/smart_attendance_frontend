@@ -194,11 +194,9 @@ function Analysis() {
       {
         courseAttendance.length===0 && studentPresent==='' && studentAverage.length===0 && coursevsDate.length==0 &&
         <div className='Analysis-home'> 
-        <h1 className="analysis-text">Analysis</h1>
-        <p>
-          Welcome to the Analysis page. Here you can perform various types of analysis
-          related to course attendance. You can select any of the 4 combinations of the above inputs which can be viewed by hovering over the "i" for detailed report. Please provide the necessary inputs and click
-          the "Submit" button to get started.
+        <h1 className="analysis-text">Attendance Analysis</h1>
+        <p className='home-content'>
+          Welcome to the Attendance Analysis page !
         </p>
         </div>
       }

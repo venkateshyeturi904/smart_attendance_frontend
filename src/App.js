@@ -4,6 +4,7 @@ import ImageUploadComponent from './components/ImageUploadComponent';
 import Header from './components/Header';
 import Analysis from './components/Analysis';
 import Home from './components/Home';
+import './CSS/custom-footer.css'
 function App() {
   return (
       <Router>
@@ -26,8 +27,8 @@ function App() {
             </div>
           )}/>
         </Routes> 
-        <footer className="footer">
-          <span className='footer-text'>&copy; 2023 IITGuwahati. All rights reserved.</span>
+        <footer className="footer custom-footer">
+          <span className='footer-text custom-footer-text'>&copy; 2023 Indian Institute of Technology Guwahati.</span>
         </footer>
       </div>
       </Router>
