@@ -1,4 +1,6 @@
 .container {
+  left: 0;
+  right: 0;
   background-color: white;
   height: 100vh;
   display: flex;
@@ -109,7 +111,7 @@
   border: none;
   cursor: pointer;
   font-size: 20px;
-  color: grey;
+  color: rgba(0, 0, 0, 0.71);
 }
 
 .info-dropdown {
@@ -149,3 +151,7 @@
   }
   
   */
+
+.Analysis-home{
+  text-align: center;
+}
