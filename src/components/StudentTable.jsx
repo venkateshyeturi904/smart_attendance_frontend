@@ -5,21 +5,9 @@ import '../CSS/table.css';
 const StudentTable = ({ row, col ,setData }) => {
   const columns = useMemo(() => col, [col]);
   const data=useMemo(()=>row,[row]);
-
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    prepareRow,
-    rows,
-    selectedFlatRows,
-  } = useTable(
-    {
-      columns,
-      data,
-    },
-    useRowSelect,
-    (hooks) => {
+  let func=()=>{};
+  if(col[2]?.Header=='Present/Absent'){
+    func=(hooks) => {
       hooks.visibleColumns.push((columns) => [
         {
           id: 'selection',
@@ -46,6 +34,21 @@ const StudentTable = ({ row, col ,setData }) => {
         ...columns,
       ]);
     }
+  }
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    rows,
+    selectedFlatRows,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useRowSelect,
+    func
   );
 
   return (
