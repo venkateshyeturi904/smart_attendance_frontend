@@ -60,6 +60,10 @@
   margin-top:10px;
 }
 
+.info-box{
+  text-align: left;
+}
+
 .info-box ul li span {
   font-weight: bold;
 }
@@ -80,7 +84,7 @@
 
 .info-box ul li {
   position: relative;
-  padding-left: 25px;
+ padding-left: 25px;
   margin-bottom: 15px;
   line-height: 1.4;
 }
@@ -99,9 +103,9 @@
   margin-left: 20px;
 }
 
-.info-button {
+/* .info-button {
   align-items: center;
-}
+} */
 
 .info-icon {
   background: none;
