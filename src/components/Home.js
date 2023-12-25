@@ -1,7 +1,6 @@
 import React from 'react'
 import '../CSS/Home.css'
 import { useNavigate } from 'react-router-dom/dist'
-import Header from '../components/Header'
 
 
 
@@ -13,7 +12,6 @@ function Home() {
   
     return (
         <div className='Home'>
-            {/* <Header/> */}
             <div className='out-container'>
                 <div className='college'>
                     <img

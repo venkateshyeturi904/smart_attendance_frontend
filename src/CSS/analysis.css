@@ -5,12 +5,12 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  /* margin-top: 70px; */
 }
 
 .analysis-box {
   display: flex;
-  /* border-radius: 5px;
-  border: 1px solid lightgray; */
+  flex:wrap;
   object-fit:contain;
   justify-content: center;
   margin-top:5px;
@@ -26,7 +26,6 @@
 
 .analysis-box input {
   padding: 8px;
-  margin-bottom: 10px;
   border: 1px solid #ccc;
   margin-left:10px;
   margin-right: 10px;
@@ -101,9 +100,7 @@
 }
 
 .info-button {
-  position: absolute;
-  top: 70px;
-  right: 13%;
+  align-items: center;
 }
 
 .info-icon {
@@ -111,12 +108,11 @@
   border: none;
   cursor: pointer;
   font-size: 20px;
-  color: rgba(0, 0, 0, 0.71);
+  color:  #282A35;
 }
 
 .info-dropdown {
   position: absolute;
-  top: 100%;
   right:1%;
   background-color: #f0f0f0;
   border: 1px solid #ccc;

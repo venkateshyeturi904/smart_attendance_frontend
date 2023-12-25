@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  height: 100%;
+  width:100%;
 }
 
 .App-logo {
@@ -98,6 +100,7 @@
     background-color: white;
     height: 100vh;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -196,13 +199,13 @@
 } 
 
 .header{
-  height:60px;
+  height:70px;
+  width:100%;
   display:flex;
   align-items:center;
-  background-color:rgba(0, 0, 0, 0.71);
+  background-color: #282A35;
   position: sticky;
   top:0;
-  backdrop-filter: blur(100px);
 }
 
 .logo{
@@ -235,14 +238,13 @@
 }
 
 .footer{
-  background-color:rgba(0, 0, 0, 0.71);
-  padding: '10px';
+  background-color:#282A35;
+  /* padding: '10px'; */
   text-align: center;
   justify-content: center;
   bottom:0;
   left:0;
   right:0;
-  /* position: fixed; */
 }
 
 .footer-text{
@@ -262,4 +264,3 @@
   margin-left:25%;
   margin-top:2%;
 }
-

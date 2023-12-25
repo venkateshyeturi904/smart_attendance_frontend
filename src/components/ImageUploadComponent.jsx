@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { uploadImage ,uploadAttended} from "../services/ImageUploadService";
 import RollNumbersListComponent from "../components/RollNumbersListComponent";
 import "../CSS/App.css";
-import 'font-awesome/css/font-awesome.min.css';
 
 
 const ImageUploadComponent=()=> {
@@ -144,13 +143,14 @@ const ImageUploadComponent=()=> {
   }
 
   return (
-    <div>
-    <div className='upload-page-upper-div'>
-      <h2 className = 'image-upload-portal-title'>Upload Image & Confirm Attendance <i className="fa fa-check custom-tick-position"></i> </h2>
-    </div>
-    <div className = 'upload-page-lower-div'>
-      <div className="outer-container" >
-        <div className='preview_box'>
+    <div className="imageUpload">
+      <div className='upload-page-upper-div'>
+        <h2 className = 'image-upload-portal-title'>Upload Image & Confirm Attendance <i className="fa fa-check custom-tick-position"></i> </h2>
+      </div>
+      <div className = 'upload-page-lower-div'>
+        <div className="outer-container" >
+        {
+        previewImages.length>0?(<div className='preview_box'>
         <div className="file-container">
         {
               <h2>
@@ -211,83 +211,84 @@ const ImageUploadComponent=()=> {
               multiple
             /> */}
           </div>
-        </div>
-        <div className="box">
-          <img
-            className="IITG_logo"
-            alt=""
-            src="https://event.iitg.ac.in/icann2019/Proceedings_LaTeX/2019/IITG_logo.png"
-          />
-          <form onSubmit={handleSubmit}>
-              <h5>Enter Your Course Id</h5>
-              <input
-                type="text"
-                placeholder="Course ID"
-                value={classId}
-                onChange={handleClassIdChange}
-              />
-              <h5>Enter Date</h5>
-              <input type="date" value={date} onChange={handleDateChange} />
-          <div className="image-title-container">
-            <h5 style={{ textAlign: "center" }}>Image Upload</h5>
-          </div>
-          <div className="file-container">
-          {/* {previewImages.length > 0 ? (
-              previewImages.slice(
-                currentPage * imagesPerPage,
-                (currentPage + 1) * imagesPerPage
-              ).map((image, index) => (
+        </div>):<></>
+        }
+          <div className="box">
+            <img
+              className="IITG_logo"
+              alt=""
+              src="https://event.iitg.ac.in/icann2019/Proceedings_LaTeX/2019/IITG_logo.png"
+            />
+            <form onSubmit={handleSubmit}>
+                <h5>Enter Your Course Id</h5>
+                <input
+                  type="text"
+                  placeholder="Course ID"
+                  value={classId}
+                  onChange={handleClassIdChange}
+                />
+                <h5>Enter Date</h5>
+                <input type="date" value={date} onChange={handleDateChange} />
+            <div className="image-title-container">
+              <h5 style={{ textAlign: "center" }}>Image Upload</h5>
+            </div>
+            <div className="file-container">
+            {/* {previewImages.length > 0 ? (
+                previewImages.slice(
+                  currentPage * imagesPerPage,
+                  (currentPage + 1) * imagesPerPage
+                ).map((image, index) => (
+                  <img
+                    key={index}
+                    src={image}
+                    alt={`Preview ${index}`}
+                    className="image_preview"
+                  />
+                ))
+              ) : (
                 <img
-                  key={index}
-                  src={image}
-                  alt={`Preview ${index}`}
+                  src={"https://img.freepik.com/free-vector/output_53876-25529.jpg"}
+                  alt=""
                   className="image_preview"
                 />
-              ))
-            ) : (
-              <img
-                src={"https://img.freepik.com/free-vector/output_53876-25529.jpg"}
-                alt=""
-                className="image_preview"
+              )}
+              {
+                previewImages.length>0?(
+                  <div className="pagination-buttons">
+                  <button
+                    onClick={handlePreviousPage}
+                    disabled={currentPage === 0}
+                  >
+                    Previous
+                  </button>
+                  <button
+                    onClick={handleNextPage}
+                    disabled={
+                      currentPage ===
+                      Math.ceil(previewImages.length / imagesPerPage) - 1
+                    }
+                  >
+                    Next
+                  </button>
+                </div>
+                ):<></>
+              } */}
+              <input
+                id="imageInputA"
+                type="file"
+                onChange={handleFileChange}
+                accept="image/*"
+                multiple
               />
-            )}
-            {
-              previewImages.length>0?(
-                <div className="pagination-buttons">
-                <button
-                  onClick={handlePreviousPage}
-                  disabled={currentPage === 0}
-                >
-                  Previous
-                </button>
-                <button
-                  onClick={handleNextPage}
-                  disabled={
-                    currentPage ===
-                    Math.ceil(previewImages.length / imagesPerPage) - 1
-                  }
-                >
-                  Next
-                </button>
-              </div>
-              ):<></>
-            } */}
-            <input
-              id="imageInputA"
-              type="file"
-              onChange={handleFileChange}
-              accept="image/*"
-              multiple
-            />
-          </div>
-              <button type="submit" class="upload_button">{(flagUpload)?"Processing":"Upload"}</button>
-          </form>
-          </div>
-          <div>
-            <RollNumbersListComponent student_Data={studentData} handleSubmit={handleSubmitAttendance} columns={COLUMNS} flag={flagSubmit} setData={setStudentData}/>
-          </div>
+            </div>
+                <button type="submit" class="upload_button">{(flagUpload)?"Processing":"Upload"}</button>
+            </form>
+            </div>
+            <div>
+              <RollNumbersListComponent student_Data={studentData} handleSubmit={handleSubmitAttendance} columns={COLUMNS} flag={flagSubmit} setData={setStudentData}/>
+            </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

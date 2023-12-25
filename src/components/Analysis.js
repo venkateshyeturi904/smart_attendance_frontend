@@ -131,99 +131,101 @@ function Analysis() {
   return (
     <div className="container">
       <div className="sub-header">
-      <div className="analysis-box">
-        <h5>Course Id:</h5>
-        <input
-          type="text"
-          placeholder="Course ID"
-          value={classId}
-          onChange={handleClassIdChange}
-        />
-        <h5>Date:</h5>
-        <input type="date" value={date} onChange={handleDateChange} />
-        <h5>Student ID:</h5>
-        <input
-          type="text"
-          placeholder="Student ID"
-          value={rollNumber}
-          onChange={handleStudentIdChange}
-        />
-        <button type="submit" className="submit_button" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
-      <div className="info-button">
-        <button
-          className="info-icon"
-          onClick={() => setShowInfo(!showInfo)}
-          onMouseEnter={() => setShowInfo(true)}
-          onMouseLeave={() => setShowInfo(false)}
-        >
-          <FaInfoCircle />
-        </button>
-        {showInfo && (
-          <div className="info-dropdown">
-            <div className="info-box">
-      <h3>Combinations:</h3>
-      <ul>
-        <li>
-          Given Course ID observe:
-          <ul className="sub-list">
-            <li>Date vs Number of Students Attended </li>
-            <li>Student vs number of classes attended</li>
-          </ul>
-        </li>
-        <li>
-          Given Course ID, Date, and Student ID, check whether the student was
-          present or absent on the specified date for the course.
-        </li>
-        <li>
-          Given Course ID and Student ID, view the average percentage of
-          attendance for that student in the course with date-wise attendance.
-        </li>
-        <li>
-          Given Course ID and Date, view the average attendance on that date
-          and the attendance sheet for that particular course.
-        </li>
-      </ul>
-    </div>
+        <div className="analysis-box">
+          <h5>Course Id:</h5>
+          <input
+            type="text"
+            placeholder="Course ID"
+            style={{width:"150px"}}
+            value={classId}
+            onChange={handleClassIdChange}
+          />
+          <h5>Date:</h5>
+          <input type="date" style={{width:"150px"}} value={date} onChange={handleDateChange} />
+          <h5>Student ID:</h5>
+          <input
+            type="text"
+            placeholder="Student ID"
+            value={rollNumber}
+            style={{width:"150px"}}
+            onChange={handleStudentIdChange}
+          />
+          <button type="submit" className="submit_button" onClick={handleSubmit}>
+            Submit
+          </button>
+          <div className="info-button">
+            <button
+              className="info-icon"
+              onClick={() => setShowInfo(!showInfo)}
+              onMouseEnter={() => setShowInfo(true)}
+              onMouseLeave={() => setShowInfo(false)}
+            >
+            <FaInfoCircle />
+            </button>
+            {showInfo && (
+              <div className="info-dropdown">
+                <div className="info-box">
+                  <h3>Combinations:</h3>
+                  <ul>
+                    <li>
+                      Given Course ID observe:
+                      <ul className="sub-list">
+                        <li>Date vs Number of Students Attended </li>
+                        <li>Student vs number of classes attended</li>
+                      </ul>
+                    </li>
+                    <li>
+                      Given Course ID, Date, and Student ID, check whether the student was
+                      present or absent on the specified date for the course.
+                    </li>
+                    <li>
+                      Given Course ID and Student ID, view the average percentage of
+                      attendance for that student in the course with date-wise attendance.
+                    </li>
+                    <li>
+                      Given Course ID and Date, view the average attendance on that date
+                      and the attendance sheet for that particular course.
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
+    {
+      courseAttendance.length===0 && studentPresent==='' && studentAverage.length===0 && coursevsDate.length==0 &&
+      <div className='Analysis-home'> 
+      <h1 className="analysis-text">Attendance Analysis</h1>
+      <p className='home-content'>
+        Welcome to the Attendance Analysis page !
+      </p>
       </div>
-      {
-        courseAttendance.length===0 && studentPresent==='' && studentAverage.length===0 && coursevsDate.length==0 &&
-        <div className='Analysis-home'> 
-        <h1 className="analysis-text">Attendance Analysis</h1>
-        <p className='home-content'>
-          Welcome to the Attendance Analysis page !
-        </p>
-        </div>
-      }
-      {courseAttendance.length > 0 && <BarGraph data={courseAttendance} />}
-      {studentPresent !== '' && (
-        <h1 className="studentPresent">{`Student is ${studentPresent}`}</h1>
-      )}
-      {studentAverage.length > 0 && (
-        <div className="course_student">
-          <PieChart
-            attendancePercentage={studentAverage[0]}
-            absencePercentage={studentAverage[1]}
-          />
-          <DatesPresent student_Data={datevsStatus} columns={COLUMNS1} />
-        </div>
-      )}
-      {coursevsDate.length > 0 && (
-        <div className="course_student">
-          <PieChart
-            attendancePercentage={courseAverage[0]}
-            absencePercentage={courseAverage[1]}
-          />
-          <DatesPresent student_Data={coursevsDate} columns={COLUMNS2} />
-        </div>
-      )}
-  </div>
-  );
+    }
+    {courseAttendance.length > 0 && <BarGraph data={courseAttendance} />}
+    {studentPresent !== '' && (
+      <h1 className="studentPresent">{`Student is ${studentPresent}`}</h1>
+    )}
+    {studentAverage.length > 0 && (
+      <div className="course_student">
+        <PieChart
+          attendancePercentage={studentAverage[0]}
+          absencePercentage={studentAverage[1]}
+        />
+        <DatesPresent student_Data={datevsStatus} columns={COLUMNS1} />
+      </div>
+    )}
+    {coursevsDate.length > 0 && (
+      <div className="course_student">
+        <PieChart
+          attendancePercentage={courseAverage[0]}
+          absencePercentage={courseAverage[1]}
+        />
+        <DatesPresent student_Data={coursevsDate} columns={COLUMNS2} />
+      </div>
+    )}
+    </div>
+    );
 }
 
-export default Analysis;
+export default Analysis;

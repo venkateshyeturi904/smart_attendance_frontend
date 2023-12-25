@@ -8,7 +8,7 @@ import './CSS/custom-footer.css'
 function App() {
   return (
       <Router>
-      <div className='app'>
+      <div className='App'>
       <Header/>
         <Routes>
           <Route path='/Attendance_analysis' element={(
@@ -27,7 +27,7 @@ function App() {
             </div>
           )}/>
         </Routes> 
-        <footer className="footer custom-footer">
+        <footer className="footer">
           <span className='footer-text custom-footer-text'>&copy; 2023 Indian Institute of Technology Guwahati.</span>
         </footer>
       </div>
